@@ -1,0 +1,51 @@
+@CHARSET "UTF-8";
+#lightbox {/*该层为高亮显示层*/ 
+       BORDER-RIGHT: #fff 0px solid; 
+       BORDER-TOP: #fff 0px solid; 
+       DISPLAY: block;  
+       Z-INDEX: 9999; /*设置该层在网页的最上端,设置足够大*/ 
+       /*BACKGROUND: #fdfce9; 设置背景色*/ 
+       background:url('../images/bg_selectmodule.png') no-repeat;
+       LEFT: 50%;  
+       MARGIN: -20px 0px 0px -200px;  
+       BORDER-LEFT: #fff 0px solid;  
+       WIDTH: 285px;  
+       /*BORDER: #D2ECBF 2px solid;*/  
+       POSITION: absolute;  
+       TOP: 50%;  
+       HEIGHT: 150px;  
+       TEXT-ALIGN: left; 
+       background-color:transparent;
+		}
+#lightbox2 {/*该层为高亮显示层*/ 
+       BORDER-RIGHT: #fff 0px solid; 
+       BORDER-TOP: #fff 0px solid; 
+       DISPLAY: block;  
+       Z-INDEX: 9999; /*设置该层在网页的最上端,设置足够大*/ 
+       /*BACKGROUND: #fdfce9; 设置背景色*/ 
+      /* background:url('../images/bg_selectmodule.png') no-repeat;*/
+       LEFT: 60%;  
+       MARGIN: -20px 0px 0px -200px;  
+       BORDER-LEFT: #fff 0px solid;  
+       WIDTH: 285px;  
+       /*BORDER: #D2ECBF 2px solid;*/  
+       POSITION: absolute;  
+       TOP: 30%;  
+       HEIGHT: 150px;  
+       TEXT-ALIGN: left; 
+       background-color:transparent;
+		}
+	#overlay {/*该层为覆盖层*/ 
+      DISPLAY: block; 
+      Z-INDEX: 9998; /*设置高亮层的下方*/ 
+      FILTER: alpha(opacity=50); /*设置成透明*/ 
+      LEFT: 0px;  
+      WIDTH: 100%;  
+      POSITION: absolute;  
+      TOP: 0px;  
+      HEIGHT:expression(document.body.scrollHeight)  !important;  
+      HEIGHT:150%;
+      BACKGROUND-COLOR: #000;  
+      moz-opacity: 0.4;  
+      opacity: .20 ;
+      }  

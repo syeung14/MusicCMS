@@ -1,0 +1,40 @@
+
+.bgbody{
+	margin:0px;padding:0px;border:0px;
+	FONT-SIZE: 12px;color:#333333;
+	/*	background-color:#CAD6ED;*/
+	text-align:center;
+	background:#CAD6ED url("../images/left_bg.gif") repeat-x;
+}
+  
+ul{
+	list-style-type:circle;	
+}	
+.leftpart{/*height:100%;*//*这里的100%会根据整个的页面的大小而变化*/
+	text-align:center;
+	width:200px;margin:0px auto;
+	white-space:nowrap;padding:0px 4px;
+}
+.opr_Item{
+	white-space:nowrap;
+}
+/*left_class_bg*/
+.left_class{
+	background:url("../images/line_11.gif") repeat-x;
+	height:24;
+}	
+.option_td{
+	background:#FFFFFF;line-height:200%;
+}
+.leftTitle{
+	font-size:12px;font-weight:bold;color:#023298;TEXT-DECORATION:none;
+}
+.title_dec{
+	margin:1px 5px;width:20;border:0;vertical-align:middle;		
+}	
+.listItem{
+	line-height:20px;
+}
+li a{
+	FONT-SIZE:12px;COLOR:#4d4d4d;TEXT-DECORATION:none;
+}
