@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2015-04-20 19:30:14
+Date: 2015-04-22 13:24:57
 */
 
 CREATE DATABASE `musicsdb`;
@@ -104,8 +104,8 @@ CREATE TABLE `favorite` (
   `music_name` varchar(255) NOT NULL,
   PRIMARY KEY (`user_name`,`music_name`),
   KEY `musicname` (`music_name`),
-  CONSTRAINT `username` FOREIGN KEY (`user_name`) REFERENCES `user` (`userName`) ON DELETE CASCADE,
-  CONSTRAINT `musicname` FOREIGN KEY (`music_name`) REFERENCES `music` (`name`) ON DELETE CASCADE
+  CONSTRAINT `musicname` FOREIGN KEY (`music_name`) REFERENCES `music` (`name`) ON DELETE CASCADE,
+  CONSTRAINT `username` FOREIGN KEY (`user_name`) REFERENCES `user` (`userName`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -131,6 +131,7 @@ CREATE TABLE `music` (
   `year` year(4) DEFAULT NULL,
   `lyric` longtext,
   `resource` text NOT NULL,
+  `pace` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `artist` (`artist`) USING BTREE,
   KEY `album` (`album`) USING BTREE,
@@ -144,11 +145,11 @@ CREATE TABLE `music` (
 -- ----------------------------
 -- Records of music
 -- ----------------------------
-INSERT INTO `music` VALUES ('1', 'Love Story', '3:55', 'Taylor Swift', 'Fearless', 'Pop', '2008', 'awergaeg aseg', '/storage/lovestory.mp3');
-INSERT INTO `music` VALUES ('2', 'Back to December', '4:54', 'Taylor Swift', 'Speak Now', 'Country', '2010', 'asdf rth', '/storage/backtodecember.mp3');
-INSERT INTO `music` VALUES ('3', 'Bad', '4:07', 'Michael Jackson', 'Bad', 'Pop', '1987', 'arsga asrgae', '/storage/bad.mp3');
-INSERT INTO `music` VALUES ('4', 'Heal the World', '6:24', 'Michael Jackson', 'Dangerous', 'Pop', '1991', 'drth srth', '/storage/healtheworld.mp3');
-INSERT INTO `music` VALUES ('5', 'Dangerous', '6:59', 'Michael Jackson', 'Dangerous', 'R&B', '1991', 'esrth stjh', '/storage/dangerous.mp3');
+INSERT INTO `music` VALUES ('1', 'Love Story', '3:55', 'Taylor Swift', 'Fearless', 'Pop', '2008', 'awergaeg aseg', '/storage/lovestory.mp3', '55');
+INSERT INTO `music` VALUES ('2', 'Back to December', '4:54', 'Taylor Swift', 'Speak Now', 'Country', '2010', 'asdf rth', '/storage/backtodecember.mp3', '44');
+INSERT INTO `music` VALUES ('3', 'Bad', '4:07', 'Michael Jackson', 'Bad', 'Pop', '1987', 'arsga asrgae', '/storage/bad.mp3', '33');
+INSERT INTO `music` VALUES ('4', 'Heal the World', '6:24', 'Michael Jackson', 'Dangerous', 'Pop', '1991', 'drth srth', '/storage/healtheworld.mp3', '22');
+INSERT INTO `music` VALUES ('5', 'Dangerous', '6:59', 'Michael Jackson', 'Dangerous', 'R&B', '1991', 'esrth stjh', '/storage/dangerous.mp3', '44');
 
 -- ----------------------------
 -- Table structure for user
@@ -165,7 +166,7 @@ CREATE TABLE `user` (
   `role` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`userID`),
   UNIQUE KEY `userName` (`userName`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user

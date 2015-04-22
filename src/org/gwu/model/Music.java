@@ -13,6 +13,7 @@ public class Music {
 	private int year;
 	private String lyric;
 	private String resource;
+	private int pace;
 	
 	public int getId() {
 		return id;
@@ -67,5 +68,11 @@ public class Music {
 	}
 	public void setResource(String resource) {
 		this.resource = resource;
+	}
+	public int getPace() {
+		return pace;
+	}
+	public void setPace(int pace) {
+		this.pace = pace;
 	}
 }

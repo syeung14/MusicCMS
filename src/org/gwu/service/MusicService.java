@@ -27,4 +27,17 @@ public class MusicService extends AbstractService {
 		MusicDAO md=new MusicDAO();
 		return md.getFavorite(name);
 	}
+	
+	@GET
+	@Path("/search")
+	@Produces("application/xml")
+	public List<Music> getFavorite(@DefaultValue("") @QueryParam("name") String name, 
+			@DefaultValue("") @QueryParam("artist") String artist,
+			@DefaultValue("") @QueryParam("album") String album,
+			@DefaultValue("") @QueryParam("category") String category,
+			@DefaultValue("0") @QueryParam("year") int year,
+			@DefaultValue("0") @QueryParam("pace") int pace) {
+		MusicDAO md=new MusicDAO();
+		return md.search(name, artist, album, category, year, pace);
+	}
 }
