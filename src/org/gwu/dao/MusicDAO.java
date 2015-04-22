@@ -117,7 +117,7 @@ public class MusicDAO extends AbstractDAO {
 		ResultSet rs = null;
 		Connection conn = getConnection();
 		try{
-			String selectSql = "select id, name, duration, artist, album, category, year, lyric, resource "
+			String selectSql = "select id, name, duration, artist, album, category, year, lyric, resource, pace "
 					+ "from music where ";
 			if(!name.equals("")){
 				selectSql += ("name='" + name + "' ");
@@ -180,6 +180,7 @@ public class MusicDAO extends AbstractDAO {
 				m.setYear(rs.getInt(7));
 				m.setLyric(rs.getString(8));
 				m.setResource(rs.getString(9));
+				m.setPace(rs.getInt(10));
 				newest.add(m);
 			}
 			log.info(selectSql);
