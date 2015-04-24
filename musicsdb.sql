@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2015-04-22 13:24:57
+Date: 2015-04-23 19:59:20
 */
 
 CREATE DATABASE `musicsdb`;
@@ -26,6 +26,7 @@ CREATE TABLE `album` (
   `name` varchar(255) NOT NULL,
   `year` year(4) DEFAULT NULL,
   `artist` varchar(255) DEFAULT NULL,
+  `track` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `artist` (`artist`),
   KEY `name` (`name`),
@@ -35,14 +36,14 @@ CREATE TABLE `album` (
 -- ----------------------------
 -- Records of album
 -- ----------------------------
-INSERT INTO `album` VALUES ('1', 'Bad', '1987', 'Michael Jackson');
-INSERT INTO `album` VALUES ('2', 'Dangerous', '1991', 'Michael Jackson');
-INSERT INTO `album` VALUES ('3', 'Beyonce', '2013', 'Beyonce');
-INSERT INTO `album` VALUES ('4', 'Survivor', '2001', 'Beyonce');
-INSERT INTO `album` VALUES ('5', 'Double Fantasy', '1980', 'John Lennon');
-INSERT INTO `album` VALUES ('6', 'Imagine', '1971', 'John Lennon');
-INSERT INTO `album` VALUES ('7', 'Fearless', '2008', 'Taylor Swift');
-INSERT INTO `album` VALUES ('8', 'Speak Now', '2010', 'Taylor Swift');
+INSERT INTO `album` VALUES ('1', 'Bad', '1987', 'Michael Jackson', '1');
+INSERT INTO `album` VALUES ('2', 'Dangerous', '1991', 'Michael Jackson', '2');
+INSERT INTO `album` VALUES ('3', 'Beyonce', '2013', 'Beyonce', '0');
+INSERT INTO `album` VALUES ('4', 'Survivor', '2001', 'Beyonce', '0');
+INSERT INTO `album` VALUES ('5', 'Double Fantasy', '1980', 'John Lennon', '0');
+INSERT INTO `album` VALUES ('6', 'Imagine', '1971', 'John Lennon', '0');
+INSERT INTO `album` VALUES ('7', 'Fearless', '2008', 'Taylor Swift', '1');
+INSERT INTO `album` VALUES ('8', 'Speak Now', '2010', 'Taylor Swift', '1');
 
 -- ----------------------------
 -- Table structure for artist
@@ -100,22 +101,22 @@ INSERT INTO `category` VALUES ('16', 'Rock');
 -- ----------------------------
 DROP TABLE IF EXISTS `favorite`;
 CREATE TABLE `favorite` (
-  `user_name` varchar(255) NOT NULL,
-  `music_name` varchar(255) NOT NULL,
-  PRIMARY KEY (`user_name`,`music_name`),
-  KEY `musicname` (`music_name`),
-  CONSTRAINT `musicname` FOREIGN KEY (`music_name`) REFERENCES `music` (`name`) ON DELETE CASCADE,
-  CONSTRAINT `username` FOREIGN KEY (`user_name`) REFERENCES `user` (`userName`) ON DELETE CASCADE
+  `user_id` int(11) NOT NULL,
+  `music_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`music_id`),
+  KEY `musicid` (`music_id`),
+  CONSTRAINT `userid` FOREIGN KEY (`user_id`) REFERENCES `user` (`userID`) ON DELETE CASCADE,
+  CONSTRAINT `musicid` FOREIGN KEY (`music_id`) REFERENCES `music` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of favorite
 -- ----------------------------
-INSERT INTO `favorite` VALUES ('greatwall', 'Back to December');
-INSERT INTO `favorite` VALUES ('test1', 'Dangerous');
-INSERT INTO `favorite` VALUES ('greatwall', 'Heal the World');
-INSERT INTO `favorite` VALUES ('test1', 'Heal the World');
-INSERT INTO `favorite` VALUES ('greatwall', 'Love Story');
+INSERT INTO `favorite` VALUES ('10', '1');
+INSERT INTO `favorite` VALUES ('10', '2');
+INSERT INTO `favorite` VALUES ('1', '4');
+INSERT INTO `favorite` VALUES ('10', '4');
+INSERT INTO `favorite` VALUES ('1', '5');
 
 -- ----------------------------
 -- Table structure for music
@@ -185,3 +186,24 @@ INSERT INTO `user` VALUES ('11', 'aa', 'aa@qq.com', '1234', '2014-07-06', '0', '
 INSERT INTO `user` VALUES ('12', 'iiii', 'iii@qq.com', '1234', '2014-07-06', '0', '1', 'user');
 INSERT INTO `user` VALUES ('13', 'ww', 'ww.@qq.com', '1234', '2014-07-06', '0', '0', 'user');
 INSERT INTO `user` VALUES ('14', 'kk', 'jjj@qq.com', '1234', '2014-07-07', '0', '1', 'user');
+
+-- ----------------------------
+-- Table structure for user_album
+-- ----------------------------
+DROP TABLE IF EXISTS `user_album`;
+CREATE TABLE `user_album` (
+  `user_id` int(11) NOT NULL,
+  `album_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`album_id`),
+  KEY `album_id` (`album_id`),
+  CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`userID`) ON DELETE CASCADE,
+  CONSTRAINT `album_id` FOREIGN KEY (`album_id`) REFERENCES `album` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of user_album
+-- ----------------------------
+INSERT INTO `user_album` VALUES ('1', '1');
+INSERT INTO `user_album` VALUES ('10', '2');
+INSERT INTO `user_album` VALUES ('10', '4');
+INSERT INTO `user_album` VALUES ('10', '6');
