@@ -21,27 +21,24 @@ public class UserDAO extends AbstractDAO{
 	 * insert a user
 	 * @param record
 	 */
-	public void insert(User user){
+	public boolean insert(User user){
 		PreparedStatement st=null;
 		Connection conn=getConnection();
 //		System.out.println(String.valueOf("--------------------"+Integer.parseInt(getMaxUserID())));
 		try{
-			String insertSql="insert into user(userName,email,userPassword,createTime,isAdmin,loginCount,role,userID) values(?,?,?,?,?,?,?,?)";
+			String insertSql="insert into user(userName,userPassword,createTime) values(?,?,?)";
 			st=conn.prepareStatement(insertSql);
 			st.setString(1,user.getUserName()); 
-			st.setString(3,user.getPassword());
-			st.setString(2,user.getUserEmail());	
-			st.setDate(4,new Date(Calendar.getInstance().getTimeInMillis()));
-			st.setInt(5,user.getIsAdmin());
-			st.setInt(6, 1);
-			st.setString(7, "user");
-			st.setString(8,String.valueOf(Integer.parseInt(getMaxUserID())+1));
+			st.setString(2,user.getPassword());
+			st.setDate(3,new Date(Calendar.getInstance().getTimeInMillis()));
 			st.execute();
 			
 			log.info(insertSql);
+			return true;
 		}catch(SQLException e){
 			log.error("insert error:",e);
 			e.printStackTrace();
+			return false;
 		}finally{
 			DataBaseManager.closeStatement(st,null);
 			DataBaseManager.releaseConnection(conn);
@@ -106,11 +103,10 @@ public class UserDAO extends AbstractDAO{
 		ResultSet rs=null;
 		Connection conn=getConnection();
 		try{
-			String selectSql="select userID,userName,userPassword,email,createTime,isAdmin from user where userName=? and userPassword=? and isAdmin=?";
+			String selectSql="select userID,userName,userPassword,email,createTime from user where userName=? and userPassword=?";
 			st=conn.prepareStatement(selectSql);
 			st.setString(1,user.getUserName()); 
 			st.setString(2,user.getPassword());	
-			st.setInt(3,user.getIsAdmin());	
 			rs=st.executeQuery();
 			if(rs.next()){
 				newUser=new User();
@@ -119,11 +115,10 @@ public class UserDAO extends AbstractDAO{
 				newUser.setPassword(rs.getString(3));
 				newUser.setUserEmail(rs.getString(4));
 				newUser.setCreateTime(rs.getDate(5));
-				newUser.setIsAdmin(rs.getInt(6));
 			}
 			log.info(selectSql);
 		}catch(SQLException e){
-			log.error("insert error:",e);
+			log.error("check error:",e);
 			e.printStackTrace();
 		}finally{
 			DataBaseManager.closeStatement(st,null);
@@ -141,11 +136,10 @@ public class UserDAO extends AbstractDAO{
 		ResultSet rs=null;
 		Connection conn=getConnection();
 		try{
-			String selectSql="select userID,userName,userPassword,email,createTime,isAdmin from user where userName=? and userPassword=? and isAdmin=?";
+			String selectSql="select userID,userName,userPassword,email,createTime from user where userName=? and userPassword=?";
 			st=conn.prepareStatement(selectSql);
 			st.setString(1,username); 
 			st.setString(2,password);	
-			st.setInt(3,0);	
 			rs=st.executeQuery();
 			if(rs.next()){
 				newUser=new User();
@@ -154,11 +148,10 @@ public class UserDAO extends AbstractDAO{
 				newUser.setPassword(rs.getString(3));
 				newUser.setUserEmail(rs.getString(4));
 				newUser.setCreateTime(rs.getDate(5));
-				newUser.setIsAdmin(rs.getInt(6));
 			}
 			log.info(selectSql);
 		}catch(SQLException e){
-			log.error("insert error:",e);
+			log.error("check error:",e);
 			e.printStackTrace();
 		}finally{
 			DataBaseManager.closeStatement(st,null);
@@ -172,9 +165,9 @@ public class UserDAO extends AbstractDAO{
 	 * @param record
 	 */
 	public List<User> findAll() {
-		PreparedStatement st=null;
-		Connection conn=getConnection();
-		ResultSet rs=null;
+		PreparedStatement st = null;
+		Connection conn = getConnection();
+		ResultSet rs = null;
 		List list = new ArrayList();
 		try{
 			String sql = "select * from user";
@@ -193,7 +186,6 @@ public class UserDAO extends AbstractDAO{
 				if(user.getLoginCount()>0){
 					list.add(user);
 				}
-				
 			}
 			log.info(sql);
 		}catch(SQLException e){
@@ -261,6 +253,8 @@ public class UserDAO extends AbstractDAO{
 		}
 		return 0;
 	}
+	
+	
 	public User findUser(String userId) {
 		// TODO Auto-generated method stub
 		PreparedStatement st=null;
@@ -292,27 +286,6 @@ public class UserDAO extends AbstractDAO{
 		}
 		return null;
 		
-	}
-	
-	private String getMaxUserID(){
-		String userID = "";
-		PreparedStatement st=null;
-		ResultSet rs=null;
-		Connection conn=getConnection();
-		try{
-			String selectSql="select count(*) from user ";
-			st=conn.prepareStatement(selectSql);
-			rs=st.executeQuery();
-			if(rs.next())
-				userID = rs.getString(1);
-			log.info(selectSql);
-		}catch(SQLException e){
-			log.error("get max userID error:",e);
-			e.printStackTrace();
-		}finally{
-			DataBaseManager.closeStatement(st,null);
-		}				
-		return userID;
 	}
 
 }
