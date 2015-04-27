@@ -75,6 +75,16 @@ public class UserService extends AbstractService {
 		ud.update(user);
 	}
 	
+	public void insert(User user) {
+		UserDAO ud = new UserDAO();
+		ud.insert(user);
+	}
+	
+	public User checkUser(User user){
+		UserDAO ud=new UserDAO();
+		return ud.checkUser(user);
+	}
+	
 	@POST
 	@Path("/register")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)

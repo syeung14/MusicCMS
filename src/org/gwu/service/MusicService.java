@@ -11,10 +11,15 @@ import javax.ws.rs.QueryParam;
 
 import org.gwu.dao.MusicDAO;
 import org.gwu.model.Album;
+import org.gwu.model.FuzzySearchStrategy;
 import org.gwu.model.Music;
+import org.gwu.model.PreciseSearchStrategy;
+import org.gwu.model.Strategy;
+import org.gwu.utils.PropLoader;
 
 @Path("/music")
 public class MusicService extends AbstractService {	
+	String searchType = PropLoader.getInstance().getProperty("search.strategy");
 	
 	/*
 	 * Get the music which are newly added to the database
@@ -24,6 +29,7 @@ public class MusicService extends AbstractService {
 	@Produces("application/xml")
 	public List<Music> getNew(@DefaultValue("5") @QueryParam("count") int count) {
 		MusicDAO md=new MusicDAO();
+		System.out.println(searchType);
 		return md.getNew(count);
 	}
 	
@@ -75,13 +81,18 @@ public class MusicService extends AbstractService {
 	@GET
 	@Path("/search")
 	@Produces("application/xml")
-	public List<Music> getFavorite(@DefaultValue("") @QueryParam("name") String name, 
+	public List<Music> search(@DefaultValue("") @QueryParam("name") String name, 
 			@DefaultValue("") @QueryParam("artist") String artist,
 			@DefaultValue("") @QueryParam("album") String album,
 			@DefaultValue("") @QueryParam("category") String category,
 			@DefaultValue("0") @QueryParam("year") int year,
-			@DefaultValue("0") @QueryParam("pace") int pace) {
-		MusicDAO md=new MusicDAO();
-		return md.search(name, artist, album, category, year, pace);
+			@DefaultValue("0") @QueryParam("pace") int pace) {		
+		Search s;
+		if(searchType.compareToIgnoreCase("Precise")==0)
+			s = new Search(new PreciseSearchStrategy());
+		else
+			s = new Search(new FuzzySearchStrategy());			
+		return s.doSearch(name, artist, album, category, year, pace);
+			
 	}
 }

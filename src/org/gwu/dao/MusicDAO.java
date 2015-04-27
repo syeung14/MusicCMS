@@ -103,7 +103,7 @@ public class MusicDAO extends AbstractDAO {
 	}
 	
 	/*
-	 * Search for music according to some conditions
+	 * Precisely search for music according to some conditions
 	 * @param name: the name of the target music
 	 * @param artist: the artist name of the target music
 	 * @param album: the name of the album which contains the target music
@@ -111,7 +111,115 @@ public class MusicDAO extends AbstractDAO {
 	 * @param year: the year when the target music published
 	 * @param pace: the pace of the target music
 	 */
-	public List<Music> search(String name, String artist, String album, String category, int year, int pace){
+	public List<Music> preciseSearch(String name, String artist, String album, String category, int year, int pace){
+		List<Music> newest = new ArrayList<Music>();
+		
+		int conditionCount = 0;
+		if(!name.equals(""))
+			conditionCount++;
+		if(!artist.equals(""))
+			conditionCount++;
+		if(!album.equals(""))
+			conditionCount++;
+		if(!category.equals(""))
+			conditionCount++;
+		if(year != 0)
+			conditionCount++;
+		if(pace != 0)
+			conditionCount++;
+		if(conditionCount == 0)
+			return getNew(5);
+		
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		Connection conn = getConnection();
+		try{
+			String selectSql = "select id, name, duration, artist, album, category, year, lyric, resource, pace "
+					+ "from music where ";
+			if(!name.equals("")){
+				selectSql += ("name='" + name + "' ");
+				if(conditionCount>1){
+					selectSql += "and ";
+					conditionCount--;
+				}
+			}
+				
+			if(!artist.equals("")){
+				selectSql += ("artist='" + artist + "' ");
+				if(conditionCount>1){
+					selectSql += "and ";
+					conditionCount--;
+				}
+			}
+				
+			if(!album.equals("")){
+				selectSql += ("album='" + album + "' ");
+				if(conditionCount>1){
+					selectSql += "and ";
+					conditionCount--;
+				}
+			}
+				
+			if(!category.equals("")){
+				selectSql += ("category='" + category + "' ");
+				if(conditionCount>1){
+					selectSql += "and ";
+					conditionCount--;
+				}
+			}
+				
+			if(year != 0){
+				selectSql += ("year=" + year + " ");
+				if(conditionCount>1){
+					selectSql += "and ";
+					conditionCount--;
+				}
+			}
+				
+			if(pace != 0){
+				selectSql += ("pace=" + pace + " ");
+				if(conditionCount>1){
+					selectSql += "and ";
+					conditionCount--;
+				}
+			}
+			System.out.println(selectSql);
+			st=conn.prepareStatement(selectSql);
+			rs=st.executeQuery();
+			while(rs.next()){
+				Music m = new Music();
+				m.setId(rs.getInt(1));
+				m.setName(rs.getString(2));
+				m.setDuration(rs.getString(3));
+				m.setArtist(rs.getString(4));
+				m.setAlbum(rs.getString(5));
+				m.setCategory(rs.getString(6));
+				m.setYear(rs.getInt(7));
+				m.setLyric(rs.getString(8));
+				m.setResource(rs.getString(9));
+				m.setPace(rs.getInt(10));
+				newest.add(m);
+			}
+			log.info(selectSql);
+		}catch(SQLException e){
+			log.error("error in search():",e);
+			e.printStackTrace();
+		}finally{
+			DataBaseManager.closeStatement(st,null);
+		}
+		return newest;
+	}
+	
+	/*
+	 * Fuzzy search for music according to some conditions
+	 * @param name: the name of the target music
+	 * @param artist: the artist name of the target music
+	 * @param album: the name of the album which contains the target music
+	 * @param category: the category in which the target music belonged
+	 * @param year: the year when the target music published
+	 * @param pace: the pace of the target music
+	 */
+	public List<Music> fuzzySearch(String name, String artist, String album, String category, int year, int pace){
 		List<Music> newest = new ArrayList<Music>();
 		
 		int conditionCount = 0;
@@ -169,7 +277,7 @@ public class MusicDAO extends AbstractDAO {
 			}
 				
 			if(year != 0){
-				selectSql += ("year=" + year + " ");
+				selectSql += ("year between " + (year-5) + " and " + (year+5) + " ");
 				if(conditionCount>1){
 					selectSql += "and ";
 					conditionCount--;
@@ -177,7 +285,7 @@ public class MusicDAO extends AbstractDAO {
 			}
 				
 			if(pace != 0){
-				selectSql += ("pace=" + pace + " ");
+				selectSql += ("pace between " + (pace-5) + " and " + (pace+5) + " ");
 				if(conditionCount>1){
 					selectSql += "and ";
 					conditionCount--;
