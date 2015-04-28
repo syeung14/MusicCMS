@@ -1,4 +1,4 @@
-package org.gwu.dao;
+package org.gwu.dao.mysql;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -9,18 +9,20 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import org.gwu.dao.AbstractDAO;
+import org.gwu.dao.IUserDao;
 import org.gwu.db.DataBaseManager;
 import org.gwu.model.User;
 
-public class UserDAO extends AbstractDAO{
+public class MySqlUserDAO extends AbstractDAO implements IUserDao{
 
-	public UserDAO() {
+	public MySqlUserDAO() {
 		super();
 	}
-	/**
-	 * insert a user
-	 * @param record
+	/* (non-Javadoc)
+	 * @see org.gwu.dao.IUserDao#insert(org.gwu.model.User)
 	 */
+	@Override
 	public boolean insert(User user){
 		PreparedStatement st=null;
 		Connection conn=getConnection();
@@ -45,11 +47,10 @@ public class UserDAO extends AbstractDAO{
 		}
 	}
 	
-	/**
-	 * delete a user
-	 * @param record
-	 * username,useremail,createdtime,is_admin
+	/* (non-Javadoc)
+	 * @see org.gwu.dao.IUserDao#delete(java.lang.String)
 	 */
+	@Override
 	public void delete(String userId){
 		
 		PreparedStatement st=null;
@@ -69,6 +70,10 @@ public class UserDAO extends AbstractDAO{
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.gwu.dao.IUserDao#update(org.gwu.model.User)
+	 */
+	@Override
 	public void update(User user){
 		PreparedStatement st=null;
 		Connection conn=getConnection();
@@ -93,10 +98,10 @@ public class UserDAO extends AbstractDAO{
 	
 	
 	
-	/**
-	 * validate a user with userName password
-	 * @param record
+	/* (non-Javadoc)
+	 * @see org.gwu.dao.IUserDao#checkUser(org.gwu.model.User)
 	 */
+	@Override
 	public User checkUser(User user){
 		User newUser=null;
 		PreparedStatement st=null;
@@ -126,10 +131,10 @@ public class UserDAO extends AbstractDAO{
 		return newUser;
 	}
 	
-	/**
-	 * validate a user with userName password
-	 * @param record
+	/* (non-Javadoc)
+	 * @see org.gwu.dao.IUserDao#checkUser(java.lang.String, java.lang.String)
 	 */
+	@Override
 	public User checkUser(String username,String password){
 		User newUser=null;
 		PreparedStatement st=null;
@@ -160,10 +165,10 @@ public class UserDAO extends AbstractDAO{
 	}
 	
 
-	/**
-	 * find all users
-	 * @param record
+	/* (non-Javadoc)
+	 * @see org.gwu.dao.IUserDao#findAll()
 	 */
+	@Override
 	public List<User> findAll() {
 		PreparedStatement st = null;
 		Connection conn = getConnection();
@@ -198,6 +203,10 @@ public class UserDAO extends AbstractDAO{
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.gwu.dao.IUserDao#getPageData(int, int)
+	 */
+	@Override
 	public List<User> getPageData(int startindex, int pagesize){
 		PreparedStatement st=null;
 		Connection conn=getConnection();
@@ -233,6 +242,10 @@ public class UserDAO extends AbstractDAO{
 		return list;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.gwu.dao.IUserDao#getTotalrecord()
+	 */
+	@Override
 	public int getTotalrecord(){
 		PreparedStatement st=null;
 		Connection conn=getConnection();
@@ -255,6 +268,10 @@ public class UserDAO extends AbstractDAO{
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see org.gwu.dao.IUserDao#findUser(java.lang.String)
+	 */
+	@Override
 	public User findUser(String userId) {
 		// TODO Auto-generated method stub
 		PreparedStatement st=null;

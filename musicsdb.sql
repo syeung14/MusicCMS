@@ -97,31 +97,10 @@ INSERT INTO `category` VALUES ('14', 'R&B');
 INSERT INTO `category` VALUES ('15', 'Reggae');
 INSERT INTO `category` VALUES ('16', 'Rock');
 
--- ----------------------------
--- Table structure for favorite
--- ----------------------------
-DROP TABLE IF EXISTS `favorite`;
-CREATE TABLE `favorite` (
-  `user_id` int(11) NOT NULL,
-  `music_id` int(11) NOT NULL,
-  PRIMARY KEY (`user_id`,`music_id`),
-  KEY `musicid` (`music_id`),
-  CONSTRAINT `userid` FOREIGN KEY (`user_id`) REFERENCES `user` (`userID`) ON DELETE CASCADE,
-  CONSTRAINT `musicid` FOREIGN KEY (`music_id`) REFERENCES `music` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of favorite
--- ----------------------------
-INSERT INTO `favorite` VALUES ('10', '1');
-INSERT INTO `favorite` VALUES ('10', '2');
-INSERT INTO `favorite` VALUES ('1', '4');
-INSERT INTO `favorite` VALUES ('10', '4');
-INSERT INTO `favorite` VALUES ('1', '5');
 
 -- ----------------------------
 -- Table structure for music
--- ----------------------------
+----------------------------
 DROP TABLE IF EXISTS `music`;
 CREATE TABLE `music` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -187,6 +166,29 @@ INSERT INTO `user` VALUES ('11', 'aa', 'aa@qq.com', '1234', '2014-07-06', '0', '
 INSERT INTO `user` VALUES ('12', 'iiii', 'iii@qq.com', '1234', '2014-07-06', '0', '1', 'user');
 INSERT INTO `user` VALUES ('13', 'ww', 'ww.@qq.com', '1234', '2014-07-06', '0', '0', 'user');
 INSERT INTO `user` VALUES ('14', 'kk', 'jjj@qq.com', '1234', '2014-07-07', '0', '1', 'user');
+
+
+-- ----------------------------
+-- Table structure for favorite
+-- ----------------------------
+DROP TABLE IF EXISTS `favorite`;
+CREATE TABLE `favorite` (
+  `user_id` int(11) NOT NULL,
+  `music_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`music_id`),
+  KEY `musicid` (`music_id`),
+  CONSTRAINT `userid` FOREIGN KEY (`user_id`) REFERENCES `user` (`userID`) ON DELETE CASCADE,
+  CONSTRAINT `musicid` FOREIGN KEY (`music_id`) REFERENCES `music` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of favorite
+-- ----------------------------
+INSERT INTO `favorite` VALUES ('10', '1');
+INSERT INTO `favorite` VALUES ('10', '2');
+INSERT INTO `favorite` VALUES ('1', '4');
+INSERT INTO `favorite` VALUES ('10', '4');
+INSERT INTO `favorite` VALUES ('1', '5');
 
 -- ----------------------------
 -- Table structure for user_album

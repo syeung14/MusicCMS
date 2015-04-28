@@ -1,4 +1,4 @@
-package org.gwu.dao;
+package org.gwu.dao.mysql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,19 +7,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.gwu.dao.AbstractDAO;
+import org.gwu.dao.IMusicDao;
 import org.gwu.db.DataBaseManager;
 import org.gwu.model.Album;
 import org.gwu.model.Music;
 
-public class MusicDAO extends AbstractDAO {
-	public MusicDAO() {
-		super();
-	}
+public class MySqlMusicDao extends AbstractDAO implements IMusicDao {
 	
 	/*
 	 * Get one user's favorite music
 	 * @param username
 	 */
+	/* (non-Javadoc)
+	 * @see org.gwu.dao.IMusicDao#getFavorite(java.lang.String)
+	 */
+	@Override
 	public List<Music> getFavorite(String username){
 		List<Music> favo = new ArrayList<Music>();
 		if(username.equals("")){
@@ -65,6 +68,10 @@ public class MusicDAO extends AbstractDAO {
 	 * Get the music which are newly added to the database
 	 * @param count: the number of music returned
 	 */
+	/* (non-Javadoc)
+	 * @see org.gwu.dao.IMusicDao#getNew(int)
+	 */
+	@Override
 	public List<Music> getNew(int count){
 		List<Music> newest = new ArrayList<Music>();
 		
@@ -111,6 +118,10 @@ public class MusicDAO extends AbstractDAO {
 	 * @param year: the year when the target music published
 	 * @param pace: the pace of the target music
 	 */
+	/* (non-Javadoc)
+	 * @see org.gwu.dao.IMusicDao#preciseSearch(java.lang.String, java.lang.String, java.lang.String, java.lang.String, int, int)
+	 */
+	@Override
 	public List<Music> preciseSearch(String name, String artist, String album, String category, int year, int pace){
 		List<Music> newest = new ArrayList<Music>();
 		
@@ -219,6 +230,10 @@ public class MusicDAO extends AbstractDAO {
 	 * @param year: the year when the target music published
 	 * @param pace: the pace of the target music
 	 */
+	/* (non-Javadoc)
+	 * @see org.gwu.dao.IMusicDao#fuzzySearch(java.lang.String, java.lang.String, java.lang.String, java.lang.String, int, int)
+	 */
+	@Override
 	public List<Music> fuzzySearch(String name, String artist, String album, String category, int year, int pace){
 		List<Music> newest = new ArrayList<Music>();
 		
@@ -322,6 +337,10 @@ public class MusicDAO extends AbstractDAO {
 	 * Get one user's album list
 	 * @param username
 	 */
+	/* (non-Javadoc)
+	 * @see org.gwu.dao.IMusicDao#getAlbum(java.lang.String)
+	 */
+	@Override
 	public List<Album> getAlbum(String username){
 		List<Album> albums = new ArrayList<Album>();
 		
@@ -363,6 +382,10 @@ public class MusicDAO extends AbstractDAO {
 	 * Get one album's music list
 	 * @param albumid: the id of one album
 	 */
+	/* (non-Javadoc)
+	 * @see org.gwu.dao.IMusicDao#getAllFromAlbum(int)
+	 */
+	@Override
 	public List<Music> getAllFromAlbum(int albumId){
 		List<Music> all = new ArrayList<Music>();
 		

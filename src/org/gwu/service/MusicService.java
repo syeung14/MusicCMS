@@ -9,12 +9,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
-import org.gwu.dao.MusicDAO;
+import org.gwu.dao.DataAccess;
+import org.gwu.dao.IMusicDao;
 import org.gwu.model.Album;
 import org.gwu.model.FuzzySearchStrategy;
 import org.gwu.model.Music;
 import org.gwu.model.PreciseSearchStrategy;
-import org.gwu.model.Strategy;
 import org.gwu.utils.PropManager;
 
 @Path("/music")
@@ -28,7 +28,7 @@ public class MusicService extends AbstractService {
 	@GET
 	@Produces("application/xml")
 	public List<Music> getNew(@DefaultValue("5") @QueryParam("count") int count) {
-		MusicDAO md=new MusicDAO();
+		IMusicDao md = DataAccess.getMusicDao();
 		System.out.println(searchType);
 		return md.getNew(count);
 	}
@@ -41,7 +41,7 @@ public class MusicService extends AbstractService {
 	@Path("/favorite")
 	@Produces("application/xml")
 	public List<Music> getFavorite(@DefaultValue("") @QueryParam("name") String name) {
-		MusicDAO md=new MusicDAO();
+		IMusicDao md=DataAccess.getMusicDao();
 		return md.getFavorite(name);
 	}
 	
@@ -53,7 +53,7 @@ public class MusicService extends AbstractService {
 	@Path("/album")
 	@Produces("application/xml")
 	public List<Album> getAlbum(@DefaultValue("") @QueryParam("name") String name) {
-		MusicDAO md=new MusicDAO();
+		IMusicDao md=DataAccess.getMusicDao();
 		return md.getAlbum(name);
 	}
 	
@@ -65,7 +65,7 @@ public class MusicService extends AbstractService {
 	@Path("/album/{albumid}")
 	@Produces("application/xml")
 	public List<Music> getAllFromAlbum(@DefaultValue("0") @PathParam("albumid") int id) {
-		MusicDAO md=new MusicDAO();
+		IMusicDao md=DataAccess.getMusicDao();
 		return md.getAllFromAlbum(id);
 	}
 	

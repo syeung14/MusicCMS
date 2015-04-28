@@ -2,13 +2,14 @@ package org.gwu.model;
 
 import java.util.List;
 
-import org.gwu.dao.MusicDAO;
+import org.gwu.dao.DataAccess;
+import org.gwu.dao.IMusicDao;
 
 public class FuzzySearchStrategy implements Strategy{
 	@Override
 	public List<Music> search(String name, String artist, String album, String category, int year, int pace) {
 		// TODO Auto-generated method stub
-		MusicDAO md=new MusicDAO();
+		IMusicDao md= DataAccess.getMusicDao();
 		return md.fuzzySearch(name, artist, album, category, year, pace);
 	}
 }
