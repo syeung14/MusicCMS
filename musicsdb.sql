@@ -13,9 +13,29 @@ File Encoding         : 65001
 Date: 2015-04-23 19:59:20
 */
 
-CREATE DATABASE `musicsdb`;
 USE `musicsdb`;
 SET FOREIGN_KEY_CHECKS=0;
+
+
+-- ----------------------------
+-- Table structure for artist
+-- ----------------------------
+DROP TABLE IF EXISTS `artist`;
+CREATE TABLE `artist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `gender` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of artist
+-- ----------------------------
+INSERT INTO `artist` VALUES ('1', 'Michael Jackson', 'male');
+INSERT INTO `artist` VALUES ('2', 'Beyonce', 'female');
+INSERT INTO `artist` VALUES ('3', 'John Lennon', 'male');
+INSERT INTO `artist` VALUES ('4', 'Taylor Swift', 'female');
 
 -- ----------------------------
 -- Table structure for album
@@ -45,25 +65,6 @@ INSERT INTO `album` VALUES ('6', 'Imagine', '1971', 'John Lennon', '0');
 INSERT INTO `album` VALUES ('7', 'Fearless', '2008', 'Taylor Swift', '1');
 INSERT INTO `album` VALUES ('8', 'Speak Now', '2010', 'Taylor Swift', '1');
 
--- ----------------------------
--- Table structure for artist
--- ----------------------------
-DROP TABLE IF EXISTS `artist`;
-CREATE TABLE `artist` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `gender` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of artist
--- ----------------------------
-INSERT INTO `artist` VALUES ('1', 'Michael Jackson', 'male');
-INSERT INTO `artist` VALUES ('2', 'Beyonce', 'female');
-INSERT INTO `artist` VALUES ('3', 'John Lennon', 'male');
-INSERT INTO `artist` VALUES ('4', 'Taylor Swift', 'female');
 
 -- ----------------------------
 -- Table structure for category

@@ -15,11 +15,11 @@ import org.gwu.model.FuzzySearchStrategy;
 import org.gwu.model.Music;
 import org.gwu.model.PreciseSearchStrategy;
 import org.gwu.model.Strategy;
-import org.gwu.utils.PropLoader;
+import org.gwu.utils.PropManager;
 
 @Path("/music")
 public class MusicService extends AbstractService {	
-	String searchType = PropLoader.getInstance().getProperty("search.strategy");
+	String searchType = PropManager.getInstance().getProperty("search.strategy");
 	
 	/*
 	 * Get the music which are newly added to the database

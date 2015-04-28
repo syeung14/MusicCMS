@@ -6,10 +6,10 @@ import java.util.Properties;
 
 import org.gwu.db.DataBaseManager;
 
-public class PropLoader{
-	private static PropLoader instance;
+public class PropManager{
+	private static PropManager instance;
 	private Properties prop;
-	private PropLoader()
+	private PropManager()
 	{
 		prop = new Properties();  
 		InputStream is = null;
@@ -23,10 +23,10 @@ public class PropLoader{
 		}
 	}
 	
-	public static synchronized PropLoader getInstance()
+	public static synchronized PropManager getInstance()
 	{
 		if (instance == null)
-			instance = new PropLoader();
+			instance = new PropManager();
 		return instance;
 	}
 	
