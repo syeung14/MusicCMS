@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.gwu.model.Album;
 import org.gwu.model.Music;
+import org.gwu.service.search.Criteria;
 
 public interface IMusicDao {
 
@@ -28,8 +29,7 @@ public interface IMusicDao {
 	 * @param year: the year when the target music published
 	 * @param pace: the pace of the target music
 	 */
-	public abstract List<Music> preciseSearch(String name, String artist,
-			String album, String category, int year, int pace);
+	public abstract List<Music> preciseSearch(Criteria criteria);
 
 	/*
 	 * Fuzzy search for music according to some conditions
@@ -40,8 +40,7 @@ public interface IMusicDao {
 	 * @param year: the year when the target music published
 	 * @param pace: the pace of the target music
 	 */
-	public abstract List<Music> fuzzySearch(String name, String artist,
-			String album, String category, int year, int pace);
+	public abstract List<Music> fuzzySearch(Criteria criteria);
 
 	/*
 	 * Get one user's album list

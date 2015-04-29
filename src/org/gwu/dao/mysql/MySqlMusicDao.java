@@ -12,6 +12,8 @@ import org.gwu.dao.IMusicDao;
 import org.gwu.db.DataBaseManager;
 import org.gwu.model.Album;
 import org.gwu.model.Music;
+import org.gwu.service.search.Criteria;
+import org.gwu.service.search.MusicCriteria;
 
 public class MySqlMusicDao extends AbstractDAO implements IMusicDao {
 	
@@ -122,8 +124,17 @@ public class MySqlMusicDao extends AbstractDAO implements IMusicDao {
 	 * @see org.gwu.dao.IMusicDao#preciseSearch(java.lang.String, java.lang.String, java.lang.String, java.lang.String, int, int)
 	 */
 	@Override
-	public List<Music> preciseSearch(String name, String artist, String album, String category, int year, int pace){
+	public List<Music> preciseSearch(Criteria criteria){
 		List<Music> newest = new ArrayList<Music>();
+		
+		MusicCriteria ca = (MusicCriteria)criteria;
+		
+		String name = ca.getName();
+		String artist = ca.getArtist();
+		String album = ca.getAlbum();
+		String category = ca.getCategory();
+		int year = ca.getYear();
+		int pace = ca.getPace();
 		
 		int conditionCount = 0;
 		if(!name.equals(""))
@@ -234,8 +245,17 @@ public class MySqlMusicDao extends AbstractDAO implements IMusicDao {
 	 * @see org.gwu.dao.IMusicDao#fuzzySearch(java.lang.String, java.lang.String, java.lang.String, java.lang.String, int, int)
 	 */
 	@Override
-	public List<Music> fuzzySearch(String name, String artist, String album, String category, int year, int pace){
+	public List<Music> fuzzySearch(Criteria criteria){
 		List<Music> newest = new ArrayList<Music>();
+		
+		MusicCriteria ca = (MusicCriteria)criteria;
+		
+		String name = ca.getName();
+		String artist = ca.getArtist();
+		String album = ca.getAlbum();
+		String category = ca.getCategory();
+		int year = ca.getYear();
+		int pace = ca.getPace();
 		
 		int conditionCount = 0;
 		if(!name.equals(""))

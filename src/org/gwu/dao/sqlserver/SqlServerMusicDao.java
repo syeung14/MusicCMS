@@ -5,6 +5,7 @@ import java.util.List;
 import org.gwu.dao.IMusicDao;
 import org.gwu.model.Album;
 import org.gwu.model.Music;
+import org.gwu.service.search.Criteria;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -21,14 +22,12 @@ public class SqlServerMusicDao implements IMusicDao {
 	}
 
 	@Override
-	public List<Music> preciseSearch(String name, String artist, String album,
-			String category, int year, int pace) {
+	public List<Music> preciseSearch(Criteria criteria) {
 		throw new NotImplementedException();
 	}
 
 	@Override
-	public List<Music> fuzzySearch(String name, String artist, String album,
-			String category, int year, int pace) {
+	public List<Music> fuzzySearch(Criteria criteria) {
 		throw new NotImplementedException();
 	}
 

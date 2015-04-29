@@ -1,17 +1,18 @@
-package org.gwu.model;
+package org.gwu.service.search;
 
 import java.util.List;
 
 import org.gwu.dao.DataAccess;
 import org.gwu.dao.IMusicDao;
+import org.gwu.model.Music;
 
 public class PreciseSearchStrategy implements Strategy{
 	
 	@Override
-	public List<Music> search(String name, String artist, String album, String category, int year, int pace) {
+	public List<Music> search(Criteria criteria) {
 		// TODO Auto-generated method stub
 		IMusicDao md= DataAccess.getMusicDao();
-		return md.preciseSearch(name, artist, album, category, year, pace);
+		return md.preciseSearch(criteria);
 	}
 	
 }

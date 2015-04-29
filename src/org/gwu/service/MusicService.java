@@ -12,9 +12,11 @@ import javax.ws.rs.QueryParam;
 import org.gwu.dao.DataAccess;
 import org.gwu.dao.IMusicDao;
 import org.gwu.model.Album;
-import org.gwu.model.FuzzySearchStrategy;
 import org.gwu.model.Music;
-import org.gwu.model.PreciseSearchStrategy;
+import org.gwu.service.search.FuzzySearchStrategy;
+import org.gwu.service.search.MusicCriteria;
+import org.gwu.service.search.PreciseSearchStrategy;
+import org.gwu.service.search.Search;
 import org.gwu.utils.PropManager;
 
 @Path("/music")
@@ -91,8 +93,18 @@ public class MusicService extends AbstractService {
 		if(searchType.compareToIgnoreCase("Precise")==0)
 			s = new Search(new PreciseSearchStrategy());
 		else
-			s = new Search(new FuzzySearchStrategy());			
-		return s.doSearch(name, artist, album, category, year, pace);
+			s = new Search(new FuzzySearchStrategy());	
+		
+		MusicCriteria criteria = new MusicCriteria.Builder()
+				.setName(name)
+				.setArtist(artist)
+				.setCategory(category)
+				.setAlbum(album)
+				.setYear(year)
+				.setPace(pace)
+				.Build();		
+		
+		return s.doSearch(criteria);
 			
 	}
 }
