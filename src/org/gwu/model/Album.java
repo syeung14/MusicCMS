@@ -3,7 +3,7 @@ package org.gwu.model;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class Album {
+public class Album implements BusinessObject {
 	private int id;
 	private String name;
 	private int year;

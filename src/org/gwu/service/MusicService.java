@@ -13,10 +13,9 @@ import org.gwu.dao.DataAccess;
 import org.gwu.dao.IMusicDao;
 import org.gwu.model.Album;
 import org.gwu.model.Music;
-import org.gwu.service.search.FuzzySearchStrategy;
+import org.gwu.service.command.ICommand;
+import org.gwu.service.command.CommandFactory;
 import org.gwu.service.search.MusicCriteria;
-import org.gwu.service.search.PreciseSearchStrategy;
-import org.gwu.service.search.Search;
 import org.gwu.utils.PropManager;
 
 @Path("/music")
@@ -89,22 +88,14 @@ public class MusicService extends AbstractService {
 			@DefaultValue("") @QueryParam("category") String category,
 			@DefaultValue("0") @QueryParam("year") int year,
 			@DefaultValue("0") @QueryParam("pace") int pace) {		
-		Search s;
-		if(searchType.compareToIgnoreCase("Precise")==0)
-			s = new Search(new PreciseSearchStrategy());
-		else
-			s = new Search(new FuzzySearchStrategy());	
-		
+
 		MusicCriteria criteria = new MusicCriteria.Builder()
-				.setName(name)
-				.setArtist(artist)
-				.setCategory(category)
-				.setAlbum(album)
-				.setYear(year)
-				.setPace(pace)
-				.Build();		
+				.setName(name).setArtist(artist)
+				.setCategory(category).setAlbum(album)
+				.setYear(year).setPace(pace).Build();		
 		
-		return s.doSearch(criteria);
-			
+		ICommand<List<Music>> s = CommandFactory.getCommand(searchType, criteria);
+		s.execute();
+		return s.getResult();
 	}
 }

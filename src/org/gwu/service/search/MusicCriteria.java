@@ -1,6 +1,6 @@
 package org.gwu.service.search;
 
-public class MusicCriteria extends Criteria {
+public class MusicCriteria implements Criteria {
 	
 	private String name = "";
 	private String artist = "";
@@ -23,7 +23,6 @@ public class MusicCriteria extends Criteria {
 	public String getArtist() {
 		return artist;
 	}
-
 	public String getAlbum() {
 		return album;
 	}

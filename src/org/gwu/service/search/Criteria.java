@@ -1,6 +1,6 @@
 package org.gwu.service.search;
 
-public class Criteria {
+public interface Criteria {
 	
 	
 	

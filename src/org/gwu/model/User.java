@@ -1,6 +1,7 @@
 package org.gwu.model;
 
 import java.util.Date;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -8,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * 
  */
 @XmlRootElement
-public class User {
+public class User implements BusinessObject {
 	private String userId;
 	private String userName;
 	private String password;

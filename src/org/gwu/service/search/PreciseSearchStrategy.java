@@ -6,7 +6,7 @@ import org.gwu.dao.DataAccess;
 import org.gwu.dao.IMusicDao;
 import org.gwu.model.Music;
 
-public class PreciseSearchStrategy implements Strategy{
+public class PreciseSearchStrategy implements SearchStrategy{
 	
 	@Override
 	public List<Music> search(Criteria criteria) {
